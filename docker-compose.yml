@@ -8,7 +8,8 @@ services:
       - CORS_ORIGIN=*
       - JWT_SECRET=secret
       - MONGO_URI=mongodb://root:secret@mongo:27017/chat-app?authSource=admin
-      - REDIS_URI=redis://redis:6379
+      - SOCKETIO_ADAPTER=redis
+      - SOCKETIO_REDIS_URI=redis://redis:6379
     ports:
       - 3000:3000
 
