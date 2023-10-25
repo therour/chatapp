@@ -1,0 +1,51 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - CORS_ORIGIN=*
+      - JWT_SECRET=secret
+      - MONGO_URI=mongodb://root:secret@mongo:27017/chat-app?authSource=admin
+      - REDIS_URI=redis://redis:6379
+    ports:
+      - 3000:3000
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      args:
+        - VITE_WS_URI=http://localhost:3000
+        - VITE_API_URL=http://localhost:3000
+    restart: unless-stopped
+    ports:
+      - 5173:80
+
+  mongo:
+    image: mongo:6-jammy
+    restart: unless-stopped
+    volumes:
+      - ./data/mongodb:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: secret
+      MONGO_INITDB_DATABASE: chat-app
+
+  redis:
+    image: redis:alpine
+    restart: unless-stopped
+    volumes:
+      - ./data/redis:/data
+    ports:
+      - 6379:6379
+    healthcheck:
+      test:
+        - CMD
+        - redis-cli
+        - ping
+      retries: 3
+      timeout: 5s
