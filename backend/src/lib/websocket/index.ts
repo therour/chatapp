@@ -1,4 +1,5 @@
 import socketIO from 'socket.io'
+import logger from '../utils/logger'
 
 type EventsMap = Record<string, unknown>
 
@@ -29,6 +30,16 @@ export abstract class SocketHandler<
   ) {
     this.socket = socket
     this.register()
+  }
+
+  safe<A extends unknown[], R>(cb: (...args: A) => R | Promise<R>): (...args: A) => Promise<void | Awaited<R>> {
+    return (...args: A) => {
+      return Promise.resolve<R>(cb(...args)).catch((err) => this.onError(err))
+    }
+  }
+
+  onError(err: unknown) {
+    logger.error(err)
   }
 
   abstract register(): void

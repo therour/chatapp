@@ -14,8 +14,8 @@ const router = Router()
   const chatController = new ChatController(jwtService)
   const auth = authenticate((token) => jwtService.verify(token))
 
-  router.post('/chatroom/join', validateBody(joinRoomValidator), catchAsync(chatController.joinRoom))
-  router.get('/chatroom/messages', auth, catchAsync(chatController.getMessages))
+  router.post('/chats/join', validateBody(joinRoomValidator), catchAsync(chatController.joinRoom))
+  router.get('/chats/messages', auth, catchAsync(chatController.getMessages))
 }
 
 export default router

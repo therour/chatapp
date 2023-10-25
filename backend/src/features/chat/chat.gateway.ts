@@ -101,7 +101,7 @@ class ChatGateway extends WebsocketGateway<ClientEvents, ServerEvents, never, So
 
 class ChatSocketHandler extends SocketHandler<ClientEvents, ServerEvents, never, SocketData> {
   register(): void {
-    this.socket.on('message:send', this.handleClientMessage.bind(this))
+    this.socket.on('message:send', this.safe(this.handleClientMessage.bind(this)))
   }
 
   async handleClientMessage(text: string, cb: (id: string) => void) {
