@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "target": "ESNext",
+        "verbatimModuleSyntax": true,
+        "allowJs": true,
+        "resolveJsonModule": true,
+        "moduleDetection": "force",
+
+        "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "forceConsistentCasingInFileNames": true,
+
+        "outDir": "dist",
+        "moduleResolution": "Bundler",
+        "module": "ESNext",
+        "noEmit": true,
+        "lib": ["es2020"],
+
+        "baseUrl": ".",
+        "paths": {
+            "~/*": ["src/*"]
+        }
+    },
+    "include": ["src", "tests"]
+}

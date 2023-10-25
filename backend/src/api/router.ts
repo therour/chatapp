@@ -1,0 +1,21 @@
+import { Router } from 'express'
+import { catchAsync } from '~/lib/utils/middleware'
+import ChatController from '~/features/chat/chat.controller'
+import JwtService from '~/lib/services/jwt'
+import Config from '~/config'
+import { joinRoomValidator } from '~/features/chat/chat.validator'
+import { authenticate, validateBody } from './middleware'
+
+const router = Router()
+
+{
+  // * Chat Routes
+  const jwtService = new JwtService(Config.jwt.secret)
+  const chatController = new ChatController(jwtService)
+  const auth = authenticate((token) => jwtService.verify(token))
+
+  router.post('/chatroom/join', validateBody(joinRoomValidator), catchAsync(chatController.joinRoom))
+  router.get('/chatroom/messages', auth, catchAsync(chatController.getMessages))
+}
+
+export default router
