@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .input {
+    @apply h-[50px] w-full appearance-none rounded-lg border border-gray-2 bg-gray-1 p-4 text-base text-black placeholder-gray-3 outline-none  focus:shadow-outline;
+  }
+  .message {
+    @apply relative rounded-xl p-4 text-sm;
+  }
+  .message-own {
+    @apply rounded-br-none bg-primary-3 text-white;
+  }
+  .message-other {
+    @apply rounded-bl-none border border-gray-2 bg-gray-1 text-black before:bg-gray-2 after:border-gray-2;
+  }
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.message-own:after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  right: 0px;
+  height: 16px;
+  width: 32px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  background: inherit;
+}
+
+.message-other:before {
+  content: '';
+  position: absolute;
+  bottom: -17px;
+  left: -1px;
+  height: 17px;
+  width: 33px;
+  clip-path: polygon(0 0, 100% 0, 0% 100%);
+  background: #e8e8e8;
+}
+.message-other:after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 0px;
+  height: 16px;
+  width: 32px;
+  clip-path: polygon(0 0, 100% 0, 0% 100%);
+  background: inherit;
+}
+
+.app-screen {
+  box-sizing: border-box;
+  height: 100vh;
+  max-height: 100vh;
+  min-height: 500px;
+  overflow-y: hidden;
+
+  /* padding-bottom: calc(1rem + env(safe-area-inset-bottom)); */
+  /* padding-top: calc(1rem + env(safe-area-inset-top)); */
+}
+
+@supports (-webkit-touch-callout: none) {
+  .app-screen {
+    max-height: -webkit-fill-available;
+    padding-bottom: calc(env(safe-area-inset-bottom));
+    padding-top: calc(env(safe-area-inset-top));
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  @media screen and (orientation: landscape) {
+    html {
+      transform: scale(0.9);
+    }
+  }
+}
