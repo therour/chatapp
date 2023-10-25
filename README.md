@@ -1,5 +1,36 @@
 # Chat App
 
+## Submission
+1. Submitted at Wed, 25 Oct 2023
+2. How to run locally? check the [Get Started](#get-started) Section
+3. Time spent: 30 hours
+
+4. Assumption & Compromises:
+
+- the user will not open the webapp in multi-tab (so the session is stored in [SessionStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)).
+
+> because we dont allow joining same username in same room, so in this case we dont store the session in localStorage because the person A may have session in browser A, and then close the browser, and then other person B able to authenticate with same username, but the session on person A might be able to reconnect when the browser is opened again.
+> SessionStorage will only persist the data on active tab of the browser, when the tab is closed its data is destroyed, so there will be no case to allow same username in the room
+
+- backend not running on clustering / multi-container
+> by not running on clustering we can store the active user in-memory to check wether the user is already inside the room or not, but if we will running on clustering / multi-container we will need to persist the active user to the database, so other application instance will have access to the current active user
+=
+
+5. What would be your approach to ensuring the application is ready for production (testing)?
+> Create testing, Load / Performance Testing run security analysis with tools like sonarqube
+6. How would you ensure a smooth user experience as 1000’s of users start using your app simultaneously?
+> 1. Apply pagination (infinity scroll) for very older messages
+> 2. Apply caching in the frontend to reduce api calls (fetching messages: even in this code we only fetch one after authentication succeed)
+> 3. Handle all the loading in the UI, and apply lock mechanism in the backend to ensure no race-condition bug/error
+> 4. As websocket connection might be unstable because of the client's connection (Wifi connection, 4G). Reconnection handling is a must, socket.io already provide reconnection and state recovery
+7. What key steps would you take to ensure application security?
+> 1. Always aware of the secret variable/data (Just never commit it)
+> 2. Make sure to apply authentication on every service
+> 3. Make sure to apply authorization on every action
+> 4. Use tooling like eslint-plugin-security, sonarqube to analyze security
+
+
+
 ## Overview
 
 The process is described as these step:
