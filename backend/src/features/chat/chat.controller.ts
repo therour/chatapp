@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express'
-import { ApiValidationError } from '~/lib/utils/errors'
-import JwtService from '~/lib/services/jwt'
 import { ChatMessage } from '~/lib/models/index'
+import JwtService from '~/lib/services/jwt'
+import { ApiValidationError } from '~/lib/utils/errors'
 import { chatGateway } from '~/websocket'
 
 export default class ChatController {

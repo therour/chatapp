@@ -1,6 +1,6 @@
 import express from 'express'
-import { ApiError, ApiValidationError } from '~/lib/utils/errors'
 import type { AsyncCheckFunction, CheckFunctionOptions, SyncCheckFunction } from 'fastest-validator'
+import { ApiError, ApiValidationError } from '~/lib/utils/errors'
 import logger from '~/lib/utils/logger'
 
 const convertError = (err: unknown) => {

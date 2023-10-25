@@ -1,9 +1,9 @@
 import { createAdapter } from '@socket.io/redis-streams-adapter'
-import * as socketIO from 'socket.io'
 import redis from 'redis'
+import * as socketIO from 'socket.io'
 import Config from './config'
-import JwtService from './lib/services/jwt'
 import ChatGateway from './features/chat/chat.gateway'
+import JwtService from './lib/services/jwt'
 
 let redisAdapterClient: redis.RedisClientType | undefined = undefined
 let adapter: undefined | ReturnType<typeof createAdapter> = undefined

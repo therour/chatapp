@@ -1,7 +1,7 @@
-import express from 'express'
 import cors from 'cors'
-import router from './api/router'
+import express from 'express'
 import { errorHandler } from './api/middleware'
+import router from './api/router'
 import Config from './config'
 import { requestLogger } from './lib/utils/logger'
 

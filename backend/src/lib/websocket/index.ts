@@ -1,5 +1,5 @@
 import socketIO from 'socket.io'
-import logger from '../utils/logger'
+import logger from '~/lib/utils/logger'
 
 type EventsMap = Record<string, unknown>
 

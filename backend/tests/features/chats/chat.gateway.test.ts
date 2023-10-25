@@ -1,13 +1,13 @@
+import mongoose from 'mongoose'
 import * as http from 'node:http'
 import { type AddressInfo } from 'node:net'
-import io, { chatGateway } from '~/websocket'
-import { io as ioc, Socket as ClientSocket, type ManagerOptions, type SocketOptions } from 'socket.io-client'
 import { Socket as ServerSocket } from 'socket.io'
-import JwtService from '~/lib/services/jwt'
+import { Socket as ClientSocket, type ManagerOptions, type SocketOptions, io as ioc } from 'socket.io-client'
 import Config from '~/config'
-import mongoose from 'mongoose'
 import { connectMongoDB } from '~/lib/db/mongo'
 import { ChatMessage } from '~/lib/models'
+import JwtService from '~/lib/services/jwt'
+import io, { chatGateway } from '~/websocket'
 
 describe('ChatGateway', () => {
   let wsUrl: string = ''

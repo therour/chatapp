@@ -1,8 +1,8 @@
-import { SocketHandler, WebsocketGateway } from '~/lib/websocket/index'
-import { ChatMessage } from '~/lib/models/index'
-import { type JsonChatMessage } from '~/lib/models/ChatMessage'
-import JwtService from '~/lib/services/jwt'
 import AsyncLock from 'async-lock'
+import { type JsonChatMessage } from '~/lib/models/ChatMessage'
+import { ChatMessage } from '~/lib/models/index'
+import JwtService from '~/lib/services/jwt'
+import { SocketHandler, WebsocketGateway } from '~/lib/websocket/index'
 
 type ServerEvents = {
   'room:message': (message: JsonChatMessage) => void

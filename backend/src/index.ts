@@ -1,10 +1,10 @@
 import mongoose from 'mongoose'
-import { connectMongoDB } from './lib/db/mongo'
-import app from './app'
 import * as http from 'node:http'
-import io, { disconnectAdapterConnection, prepareAdapterConnection } from './websocket'
+import app from './app'
 import Config from './config'
+import { connectMongoDB } from './lib/db/mongo'
 import logger from './lib/utils/logger'
+import io, { disconnectAdapterConnection, prepareAdapterConnection } from './websocket'
 
 const connectDatabase = async () => {
   logger.info('Connecting to Database...')

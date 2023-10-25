@@ -1,11 +1,11 @@
-import request from 'supertest'
 import mongoose from 'mongoose'
-import ChatGateway from '~/features/chat/chat.gateway'
-import { chatGateway } from '~/websocket'
-import JwtService from '~/lib/services/jwt'
+import request from 'supertest'
 import app from '~/app'
+import ChatGateway from '~/features/chat/chat.gateway'
 import { connectMongoDB } from '~/lib/db/mongo'
 import { ChatMessage } from '~/lib/models'
+import JwtService from '~/lib/services/jwt'
+import { chatGateway } from '~/websocket'
 
 jest.mock('~/websocket.ts', () => {
   const mockedChatGateway = {
@@ -25,7 +25,7 @@ jest.mock('~/lib/services/jwt.ts', () => {
   return jest.fn().mockImplementation(() => jwtService)
 })
 
-describe('POST /chatroom/join', () => {
+describe('POST /chats/join', () => {
   const mockedChatGateway = chatGateway as jest.Mocked<ChatGateway>
   beforeEach(() => {
     mockedChatGateway.isUsernameAlreadyInRoom.mockReset()
@@ -34,7 +34,7 @@ describe('POST /chatroom/join', () => {
   it('OK successfully return token', async () => {
     mockedChatGateway.isUsernameAlreadyInRoom.mockResolvedValue(false)
 
-    const res = await request(app).post('/chatroom/join').send({
+    const res = await request(app).post('/chats/join').send({
       username: 'user',
       roomID: 'room',
     })
@@ -46,7 +46,7 @@ describe('POST /chatroom/join', () => {
   })
 
   it('FAIL return 422 when payload is not valid', async () => {
-    const res = await request(app).post('/chatroom/join').send({
+    const res = await request(app).post('/chats/join').send({
       username: '',
       roomID: '',
     })
@@ -65,7 +65,7 @@ describe('POST /chatroom/join', () => {
   it('FAIL return 422 when username is already in room', async () => {
     mockedChatGateway.isUsernameAlreadyInRoom.mockResolvedValue(true)
 
-    const res = await request(app).post('/chatroom/join').send({
+    const res = await request(app).post('/chats/join').send({
       username: 'user',
       roomID: 'room',
     })
@@ -81,7 +81,7 @@ describe('POST /chatroom/join', () => {
   })
 })
 
-describe('GET /chatroom/messages', () => {
+describe('GET /chats/messages', () => {
   const MockJwtService = JwtService as jest.MockedClass<typeof JwtService>
   const mockedJwtService = new MockJwtService('anysecret') as jest.Mocked<JwtService>
   beforeEach(() => {
@@ -104,7 +104,7 @@ describe('GET /chatroom/messages', () => {
 
     mockedJwtService.verify.mockReturnValue({ username: 'user', roomID: 'room' })
 
-    const res = await request(app).get('/chatroom/messages').set('Authorization', 'Bearer anytoken')
+    const res = await request(app).get('/chats/messages').set('Authorization', 'Bearer anytoken')
 
     expect(res.status).toBe(200)
     expect(res.body.data).toHaveLength(2)

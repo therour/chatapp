@@ -1,6 +1,6 @@
-import Config from '~/config'
 import pino from 'pino'
 import pinoHttp from 'pino-http'
+import Config from '~/config'
 
 const levelByEnvironment = {
   production: 'info',

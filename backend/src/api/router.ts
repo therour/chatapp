@@ -1,9 +1,9 @@
 import { Router } from 'express'
-import { catchAsync } from '~/lib/utils/middleware'
-import ChatController from '~/features/chat/chat.controller'
-import JwtService from '~/lib/services/jwt'
 import Config from '~/config'
+import ChatController from '~/features/chat/chat.controller'
 import { joinRoomValidator } from '~/features/chat/chat.validator'
+import JwtService from '~/lib/services/jwt'
+import { catchAsync } from '~/lib/utils/middleware'
 import { authenticate, validateBody } from './middleware'
 
 const router = Router()
